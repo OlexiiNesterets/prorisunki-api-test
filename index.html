@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>yo!</div>
+    <div>
+        <label>
+            <span>Имя</span>
+            <input type="text" name="name" class="name">
+        </label>
+    </div>
+    <form id="myForm" method="post">
+        <button type="button" class="submit">submit</button>
+    </form>
+
+    <script>
+        // Create WebSocket connection.
+        const id = Math.random();
+        const socket = new WebSocket(`ws://localhost:5000`);
+        // const socket = new WebSocket(`ws://damp-basin-24026.herokuapp.com/`);
+
+        // Connection opened
+        socket.addEventListener('open', function (event) {
+            console.log('Connected to WS Server')
+        });
+
+        // Listen for messages
+        socket.addEventListener('message', async function (event) {
+            let msg;
+
+            try {
+                msg = JSON.parse(event.data);
+            } catch {
+                msg = event.data;
+            }
+
+            console.log('Message from server ', msg);
+        });
+
+        document.querySelector('.submit').addEventListener('click', () => {
+            const name = document.querySelector('.name').value;
+            socket.send(JSON.stringify({
+                name,
+                time: Date.now(),
+            }));
+        });
+    </script>
+</body>
+
+</html>

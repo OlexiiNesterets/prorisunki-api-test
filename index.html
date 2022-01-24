@@ -23,8 +23,8 @@
     <script>
         // Create WebSocket connection.
         const id = Math.random();
-        const socket = new WebSocket(`ws://localhost:5000`);
-        // const socket = new WebSocket(`ws://damp-basin-24026.herokuapp.com/`);
+        // const socket = new WebSocket(`ws://localhost:5000`);
+        const socket = new WebSocket(`ws://damp-basin-24026.herokuapp.com/`);
 
         // Connection opened
         socket.addEventListener('open', function (event) {
